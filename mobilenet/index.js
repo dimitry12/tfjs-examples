@@ -74,7 +74,11 @@ async function predict(imgElement) {
     const batched = normalized.reshape([1, IMAGE_SIZE, IMAGE_SIZE, 3]);
 
     // Make a prediction through mobilenet.
-    return mobilenet.predict(batched);
+		var result = null;
+		for (var iteration=0; iteration < 100; iteration++) {
+    	result = mobilenet.predict(batched);
+		}
+		return result;
   });
 
   // Convert logits to probabilities and class names.
